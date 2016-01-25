@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular
-  .module('Angello', [
+  .module('angelloApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',

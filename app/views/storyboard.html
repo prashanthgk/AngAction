@@ -1,1 +1,53 @@
-<p>This is the Storyboard view.</p>
+<div class="list-area">
+    <div class="list-wrapper">
+        <ul class="list" ng-repeat="status in statuses">
+            <h3 class="status">{{status.name}}</h3>
+            <hr/>
+            <li class="story" ng-repeat="story in stories | filter: {status:status.name}" ng-click="setCurrentStory(story)">
+                <article>
+                    <div>
+                        <button type="button" class="close" ng-click="deleteStory(story)">&times;</button>
+                        <p class="title">{{story.title}}</p>
+                    </div>
+                    <div class="type-bar {{story.type}}"></div>
+                    <div>
+                        <p>{{story.description}}</p>
+                    </div>
+                </article>
+        </ul>
+    </div>
+</div>
+<div class="details" ng-hide="!currentStory">
+    <h3>Card Details</h3>
+    <form name="detailsForm">
+        <div class="form-group">
+            <div class="controls">
+                <label class="control-label" for="inputTitle">*Title</label>
+                <input type="text" id="inputTitle" name="inputTitle" placeholder="Title" ng-model="editedStory.title" ng-required="true" ng-minlength="3" ng-maxlength="30" class="form-control">
+                <label class="control-label" for="statusTitle">*Status</label>
+                <select id="statusTitle" name="statusTitle" ng-model="editedStory.status" ng-required="true" ng-options="l.name as l.name for l in statuses" class="form-control">
+                </select>
+                
+                <label class="control-label" for="storyType">*Story Type</label>
+                <select id="storyType" name="storyType" ng-model="editedStory.type" ng-required="true" ng-options="l.name as l.name for l in storyTypes" class="form-control">
+                </select>
+
+                <label class="control-label" for="inputDescription">*Description</label>
+                <input type="text" id="inputDescription" name="inputDescription" placeholder="Description" ng-model="editedStory.description" ng-required="true" ng-minlength="3" ng-maxlength="30" class="form-control">
+                <br/>
+                <button type="submit" class="btn btn-default" ng-click="UpdateStory(editedStory)" ng-disabled="!detailsForm.$valid">Submit</button>
+                <button type="submit" class="btn pull-right btn-default" ng-click="CancelStory()" ng-disabled="!detailsForm.$valid">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="details" ng-hide="currentStory">
+    <h3>New Card </h3>
+    <button type="button" class="btn btn-success btn-xs pull-right" ng-click="AddStory()">
+        <span class="glyphicon glyphicon-plus"></span>
+    </button>
+    <div>
+        <p>Create new story by clicking
+            </p>
+    </div>
+</div>
